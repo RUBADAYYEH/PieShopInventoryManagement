@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PieShopInventoryManagement.Domain.ProductManagement
 {
-    public class Product
+    public partial class Product
     {
         private int productID;
         private string productName = string.Empty;
@@ -126,26 +126,7 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
                 Log($"Not enough items in stock for {CreateSimpleProductRepresentation()}. {AmountInStock} available but {items} requested.");
             }
         }
-        private void UpdateLowStock()
-        {
-            if (AmountInStock < 10) //it's a fixed value for now for (maxItemsInStock)
-            {
-                isBelowStockThreshold = true;
-            }
-            if (AmountInStock >= 10)
-            {
-                isBelowStockThreshold = false;
-            }
-        }
-        private void Log(string message)
-        {
-            Console.WriteLine(message);
-        }
-
-        private string CreateSimpleProductRepresentation()
-        {
-            return $"Product{productID} ({productName})";
-        }
+       
         public string DisplayDetailsFull()  //this will provide and ALERT IF STOCK LOW!
         {
             StringBuilder sb = new StringBuilder();
