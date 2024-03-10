@@ -18,17 +18,18 @@ namespace PieShopInventoryManagement
         internal static void InitializeStock()
         {
 
-            Product p1 = new Product(1, "Sugar", "Lorem ipsum", new Price() { ItemPrice = 10, Currency = Currency.Euro }, UnitType.PerKg, 100);
-            Product p2 = new Product(2, "Cake decorations", "Lorem ipsum", new Price() { ItemPrice = 8, Currency = Currency.Euro }, UnitType.PerKg, 20);
-            Product p3 = new Product(3,"Strawberry", "Lorem ipsum", new Price() { ItemPrice = 2, Currency = Currency.Euro }, UnitType.PerBox, 10);
-            inventory.Add(p1);
-            inventory.Add(p2);  
-            inventory.Add(p3);
+           ProductRepository productRepository = new ProductRepository();
+            inventory = productRepository.LoadProductsFromFile();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Loaded {inventory.Count} products!");
+            Console.WriteLine("Press enter to countinue!");
+            Console.ResetColor();
+            Console.ReadLine();
         }
         internal static void ShowMainMenu()
         {
             Console.ResetColor();
-          
+            Console.Clear();
             Console.WriteLine("********************");
             Console.WriteLine("* Select an Action *");
             Console.WriteLine("********************");

@@ -14,6 +14,8 @@ namespace PieShopInventoryManagement
         {
           
             PrintWelcome();
+            Console.WriteLine("press any key to continue!");
+            Console.ReadLine();
 
             Utilities.InitializeStock();
             Utilities.ShowMainMenu();
@@ -26,6 +28,8 @@ namespace PieShopInventoryManagement
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Welcome to Betheny's Pie Shop!");
             Console.ResetColor();
+           
+
         }
     }
 }
