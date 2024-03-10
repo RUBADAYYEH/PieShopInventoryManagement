@@ -8,13 +8,13 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
 {
     public partial class Product
     {
-        private void UpdateLowStock()
+        public void UpdateLowStock()
         {
-            if (AmountInStock < 10) //it's a fixed value for now for (maxItemsInStock)
+            if (AmountInStock < stockThreshold) //it's a fixed value for now for (maxItemsInStock)
             {
                 isBelowStockThreshold = true;
             }
-            if (AmountInStock >= 10)
+            if (AmountInStock >= stockThreshold)
             {
                 isBelowStockThreshold = false;
             }

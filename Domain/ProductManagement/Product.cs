@@ -148,6 +148,7 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
         {
             return $"{productID}.{productName} \n{AmountInStock} items in stock.";
         }
+       
 
 
 
