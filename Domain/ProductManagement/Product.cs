@@ -10,6 +10,8 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
 {
     public partial class Product
     {
+        public static int stockThreshold = 5;
+
         private int productID;
         private string productName = string.Empty;
         private string productDescription;
@@ -76,6 +78,10 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
             
 
             UpdateLowStock();
+        }
+        public static void ChangeStickThreshold(int newStockThreshold)
+        {
+            stockThreshold = newStockThreshold;  
         }
 
 
