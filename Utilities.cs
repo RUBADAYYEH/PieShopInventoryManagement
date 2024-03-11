@@ -17,7 +17,8 @@ namespace PieShopInventoryManagement
 
         internal static void InitializeStock()
         {
-
+           // BoxedProduct bp = new BoxedProduct(6,"Eggs","bla",new Price() { Currency=Currency.Euro,ItemPrice=10},100,6);
+            
            ProductRepository productRepository = new ProductRepository();
             inventory = productRepository.LoadProductsFromFile();
             Console.ForegroundColor = ConsoleColor.Green;

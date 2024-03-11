@@ -12,11 +12,11 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
     {
         public static int stockThreshold = 5;
 
-        private int productID;
-        private string productName = string.Empty;
-        private string productDescription;
+        protected int productID;
+        protected string productName = string.Empty;
+        protected string productDescription;
 
-        private int maxItemsInStock = 0;
+        protected int maxItemsInStock = 0;
 
 
 
@@ -52,8 +52,8 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
 
         //ONLY ACCESSED AS PROPERTIES
         public UnitType UnitType { get; set; }
-        public int AmountInStock { get; private set; }
-        public bool isBelowStockThreshold { get; private set; }
+        public int AmountInStock { get; protected set; }
+        public bool isBelowStockThreshold { get; protected set; }
         public Price Price { get;  set; }
         public Product(int id, string name)
         { //using properties
@@ -67,7 +67,7 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
             maxItemsInStock = 100;
             ProductName = string.Empty;
         }
-        public Product(int id, string name, string? description,Price price, UnitType unitType, int maxItemsInStock)
+        public  Product(int id, string name, string? description,Price price, UnitType unitType, int maxItemsInStock)
         {
             ProductID = id;
             ProductName = name;
@@ -79,7 +79,7 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
 
             UpdateLowStock();
         }
-        public static void ChangeStickThreshold(int newStockThreshold)
+        public  static void ChangeStickThreshold(int newStockThreshold)
         {
             stockThreshold = newStockThreshold;  
         }
@@ -87,11 +87,11 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
 
 
 
-        public void IncreaseAmountInStock()
+        public virtual void IncreaseAmountInStock()
         {
             AmountInStock++;
         }
-        public void IncreaseAmountInStock(int amount)
+        public virtual void IncreaseAmountInStock(int amount)
         {
 
             if (AmountInStock + amount <= maxItemsInStock)
@@ -105,7 +105,7 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
             }
             UpdateLowStock();
         }
-        private void DecreaseAmountInStock(int items, string reason) // accesses in a class level .
+        protected virtual void DecreaseAmountInStock(int items, string reason) // accesses in a class level .
         {
             if (items <= AmountInStock)
             {
@@ -119,7 +119,7 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
             Log(reason);
         }
 
-        public void UseProduct(int items)  //this will allow to keep track of the amount in stock whenver items are used and decremented.
+        public virtual void UseProduct(int items)  //this will allow to keep track of the amount in stock whenver items are used and decremented.
         {
             if (items <= AmountInStock)
             {
@@ -133,7 +133,7 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
             }
         }
        
-        public string DisplayDetailsFull()  //this will provide and ALERT IF STOCK LOW!
+        public virtual string DisplayDetailsFull()  //this will provide and ALERT IF STOCK LOW!
         {
             StringBuilder sb = new StringBuilder();
             sb.Append($"{productID} {productName} \n{productDescription} \n {Price}\n{AmountInStock} items in stock.");
@@ -144,7 +144,7 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
             return sb.ToString();
         }
 
-        public string DisplayDetailsShort()
+        public virtual string DisplayDetailsShort()
         {
             return $"{productID}.{productName} \n{AmountInStock} items in stock.";
         }

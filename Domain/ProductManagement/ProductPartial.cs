@@ -19,12 +19,12 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
                 isBelowStockThreshold = false;
             }
         }
-        private void Log(string message)
+        protected void Log(string message)
         {
             Console.WriteLine(message);
         }
 
-        private string CreateSimpleProductRepresentation()
+        protected string CreateSimpleProductRepresentation()
         {
             return $"Product{productID} ({productName})";
         }
