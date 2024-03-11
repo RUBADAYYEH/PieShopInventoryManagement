@@ -223,7 +223,7 @@ namespace PieShopInventoryManagement
                         ShowDetailsAndUseProduct();
                         break;
                     case "2":
-
+                        ShowCreateNewProduct();
                         break;
                     case "3":
 
@@ -243,6 +243,74 @@ namespace PieShopInventoryManagement
             } while (userSelection != "0");
             Console.Clear();
             ShowMainMenu();
+        }
+        private static void ShowAllUnitTypes()
+        {
+            int i = 1;
+            foreach (string name in Enum.GetNames(typeof(UnitType)))
+            {
+              Console.WriteLine($"{i}.{name}");
+                i++;
+            }
+        }
+        private static void ShowAllCurrencies()
+        {
+            int i = 1;
+            foreach (string name in Enum.GetNames(typeof(Currency)))
+            {
+                Console.WriteLine($"{i}.{name}");
+                i++;
+            }
+        }
+
+        private static void ShowCreateNewProduct()
+        {
+            Console.WriteLine("What type of product od you want to crete?");
+            Console.WriteLine("1. Regular product\n2. Bulk product\n3. Fresh product\n4. Boxed product");
+            Console.WriteLine("Your selection:");
+            var productType=Console.ReadLine();
+            if (productType!="1" && productType!="2" && productType!="3" && productType != "4")
+            {
+                Console.WriteLine("Invalid Selection!");
+                return;
+            }
+            Product? newProduct = null;
+            Console.WriteLine("Enter the name of the product: ");
+            string name = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Enter the price of the product: ");
+            double price = double.Parse(Console.ReadLine() ?? "0.0");
+            ShowAllCurrencies();
+            Console.WriteLine("Select a currency: ");
+            Currency currency = (Currency)Enum.Parse(typeof(Currency), Console.ReadLine() ?? "1");
+            Console.WriteLine("Enter the description of the product: ");
+            string description = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine("Enter the maximum items in stock for the product: ");
+            int max = int.Parse(Console.ReadLine() ?? "0");
+            int newID = inventory.Max(p => p.ProductID) + 1;
+
+            switch (productType)
+            {
+                case "1":
+                    newProduct = new Product(newID, name, description, new Price() { Currency = currency, ItemPrice = price }, UnitType.PerItem,max);
+                    break;
+                case "2":
+                    newProduct = new BulkProduct(newID++, name, description, new Price() { Currency = currency, ItemPrice = price }, max);
+                    break;
+                case "3":
+                    newProduct = new FreshProduct(newID++, name, description, new Price() { Currency = currency, ItemPrice = price },UnitType.PerItem, max);
+                    break;
+                case "4":
+                    Console.WriteLine("Enter the number of items in box for the product: ");
+                    int numberInBox = int.Parse(Console.ReadLine() ?? "0");
+                    newProduct = new BoxedProduct(newID++, name, description, new Price() { Currency = currency, ItemPrice = price }, max,numberInBox);
+                    break;
+
+
+            }
+            if (newProduct != null)
+            {
+                inventory.Add(newProduct);
+            }
         }
 
         private static void ShowProductsLowOnStock()

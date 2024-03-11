@@ -67,7 +67,34 @@ namespace PieShopInventoryManagement
                     {
                         unitType = UnitType.PerItem;
                     }
-                    Product product = new Product(productId, name, desc, new Price() { ItemPrice = itemPrice, Currency = currency },unitType, maxItemsInStock);
+                    string productType = productsSplits[7];
+                    Product product = null;
+                    switch (productType)
+                    {
+                        case "1":
+                            success = int.TryParse(productsSplits[8], out int amountPerBox);
+                            if (!success)
+                            {
+                                amountPerBox = 1; //default
+                            }
+                            product = new BoxedProduct(productId, name, desc, new Price() { ItemPrice = itemPrice, Currency = currency }, maxItemsInStock, amountPerBox);
+                            break;
+                        case "2":
+
+                            product = new FreshProduct(productId, name, desc, new Price() { ItemPrice = itemPrice, Currency = currency }, unitType, maxItemsInStock);
+                            break;
+                        case "3":
+
+                            product = new BulkProduct(productId, name, desc, new Price() { ItemPrice = itemPrice, Currency = currency }, maxItemsInStock);
+                            break;
+                        case "4":
+
+                            product = product = new Product(productId, name, desc, new Price() { ItemPrice = itemPrice, Currency = currency }, unitType, maxItemsInStock);
+                            break;
+                    }
+
+                        
+                   
                     products.Add(product);
                 }
             }
