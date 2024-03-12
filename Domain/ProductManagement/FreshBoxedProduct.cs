@@ -21,5 +21,7 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
         {
             AmountInStock++;
         }
+      
     }
 }
+

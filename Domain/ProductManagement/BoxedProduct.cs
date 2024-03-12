@@ -1,4 +1,5 @@
-﻿using PieShopInventoryManagement.Domain.General;
+﻿using PieShopInventoryManagement.contracts;
+using PieShopInventoryManagement.Domain.General;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PieShopInventoryManagement.Domain.ProductManagement
 {
-    public class BoxedProduct : Product
+    public class BoxedProduct : Product , ISavable,ILoggable
     {
         private int amountPerBox;
         public int AmountPerBox
@@ -70,23 +71,38 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
             }
             
         }
-        /* public void UseBoxedProduct(int items)
-         {
-             int smallestMultiple = 0;
-             int batchSize;
-             while (true)
-             {
-                 smallestMultiple++;
-                 if (smallestMultiple * AmountPerBox > items)
-                 {
-                     batchSize = (smallestMultiple * AmountPerBox);
-                     break;
-                 }
-             }
-             UseProduct(batchSize); //using base method
 
-         }*/
-      
+        public string ConvertToStringForSaving()
+        {
+            return $"{ProductID};{ProductName};{ProductDescription};{maxItemsInStock};{Price.ItemPrice};{(int)Price.Currency};{(int)UnitType};1;{AmountPerBox};";
+        }
+
+        void ILoggable.Log(string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override object Clone()
+        {
+            return new BoxedProduct(0, this.ProductName, this.productDescription, new Price() { ItemPrice = this.Price.ItemPrice, Currency = this.Price.Currency }, this.maxItemsInStock, this.AmountPerBox);
+        }
+        /* public void UseBoxedProduct(int items)
+{
+int smallestMultiple = 0;
+int batchSize;
+while (true)
+{
+smallestMultiple++;
+if (smallestMultiple * AmountPerBox > items)
+{
+batchSize = (smallestMultiple * AmountPerBox);
+break;
+}
+}
+UseProduct(batchSize); //using base method
+
+}*/
+
 
     }
 }

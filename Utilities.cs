@@ -226,7 +226,7 @@ namespace PieShopInventoryManagement
                         ShowCreateNewProduct();
                         break;
                     case "3":
-
+                        ShowCloneExistingProduct();
                         break;
                     case "4":
                         ShowProductsLowOnStock();
@@ -244,6 +244,31 @@ namespace PieShopInventoryManagement
             Console.Clear();
             ShowMainMenu();
         }
+
+        private static void ShowCloneExistingProduct()
+        {
+            string? userSelection = string.Empty;
+            string? newId=string.Empty;
+            Console.Write("Enter the Id of the product you want to clone ?");
+            string? selectedProductId=Console.ReadLine();
+            if (selectedProductId != null) {
+                Product? selectedProduct = inventory.Where(p => p.ProductID == int.Parse(selectedProductId)).FirstOrDefault();
+                if (selectedProduct != null)
+                {
+                    Console.WriteLine("Enteer new Id for the cloned product: ");
+                    newId=Console.ReadLine();
+                    Product? p = selectedProduct.Clone() as Product;
+                    if (p != null)
+                    {
+                        p.ProductID=int.Parse(newId);
+                        inventory.Add(p);
+                    }
+                }
+            
+            }
+            
+        }
+
         private static void ShowAllUnitTypes()
         {
             int i = 1;

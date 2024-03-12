@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PieShopInventoryManagement.Domain.ProductManagement
 {
-    public abstract partial class Product
+    public abstract partial class Product : ICloneable
     {
         public static int stockThreshold = 5;
 
@@ -149,9 +149,11 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
         {
             return $"{productID}.{productName} \n{AmountInStock} items in stock.";
         }
-       
+        public abstract object Clone();
 
-
-
+        /*public object Clone()
+        {
+            throw new NotImplementedException();
+        }*/
     }
 }

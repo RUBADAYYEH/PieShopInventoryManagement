@@ -1,4 +1,5 @@
-﻿using PieShopInventoryManagement.Domain.General;
+﻿using PieShopInventoryManagement.contracts;
+using PieShopInventoryManagement.Domain.General;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PieShopInventoryManagement.Domain.ProductManagement
 {
-    public class FreshProduct : Product
+    public class FreshProduct : Product,ISavable
     {
         public DateTime ExpiaryDateTime { get; set; }
         public string? StorageInstructions { get; set; }
@@ -29,6 +30,15 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
         public override void IncreaseAmountInStock()
         {
             AmountInStock++;
+        }
+
+        public string ConvertToStringForSaving()
+        {
+            return $"{ProductID};{ProductName};{ProductDescription};{maxItemsInStock};{Price.ItemPrice};{(int)Price.Currency};{(int)UnitType};2;";
+        }
+        public override object Clone()
+        {
+            return new FreshProduct(0, this.ProductName, this.productDescription, new Price() { ItemPrice = this.Price.ItemPrice, Currency = this.Price.Currency },this.UnitType, this.maxItemsInStock);
         }
     }
 }
