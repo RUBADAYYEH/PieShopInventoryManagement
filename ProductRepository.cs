@@ -89,7 +89,7 @@ namespace PieShopInventoryManagement
                             break;
                         case "4":
 
-                            product = product = new Product(productId, name, desc, new Price() { ItemPrice = itemPrice, Currency = currency }, unitType, maxItemsInStock);
+                            product = product = new RegularProduct(productId, name, desc, new Price() { ItemPrice = itemPrice, Currency = currency }, unitType, maxItemsInStock);
                             break;
                     }
 

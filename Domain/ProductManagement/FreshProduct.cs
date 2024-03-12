@@ -26,5 +26,9 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
             sb.AppendLine("Expiry date: " + ExpiaryDateTime.ToShortDateString);
             return sb.ToString();        
         }
+        public override void IncreaseAmountInStock()
+        {
+            AmountInStock++;
+        }
     }
 }

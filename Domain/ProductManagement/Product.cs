@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PieShopInventoryManagement.Domain.ProductManagement
 {
-    public partial class Product
+    public abstract partial class Product
     {
         public static int stockThreshold = 5;
 
@@ -87,10 +87,11 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
 
 
 
-        public virtual void IncreaseAmountInStock()
-        {
-            AmountInStock++;
-        }
+        // public virtual void IncreaseAmountInStock()
+        //{
+        //  AmountInStock++;
+        //}
+        public abstract void IncreaseAmountInStock();
         public virtual void IncreaseAmountInStock(int amount)
         {
 

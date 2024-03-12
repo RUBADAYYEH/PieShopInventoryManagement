@@ -17,5 +17,9 @@ namespace PieShopInventoryManagement.Domain.ProductManagement
           //  UseBoxedProduct(3);//sample 
 
         }
+        public override void IncreaseAmountInStock()
+        {
+            AmountInStock++;
+        }
     }
 }

@@ -291,7 +291,7 @@ namespace PieShopInventoryManagement
             switch (productType)
             {
                 case "1":
-                    newProduct = new Product(newID, name, description, new Price() { Currency = currency, ItemPrice = price }, UnitType.PerItem,max);
+                    newProduct = new RegularProduct(newID, name, description, new Price() { Currency = currency, ItemPrice = price }, UnitType.PerItem,max);
                     break;
                 case "2":
                     newProduct = new BulkProduct(newID++, name, description, new Price() { Currency = currency, ItemPrice = price }, max);
